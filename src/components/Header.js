@@ -1,11 +1,12 @@
 import { AppBar, Container, MenuItem, Select, Toolbar, Typography, makeStyles, createTheme, ThemeProvider } from '@material-ui/core'
 import React from 'react'
 import {useNavigate} from 'react-router-dom';
+import { CryptoState } from '../CryptoContext';
 
 const useStyles = makeStyles(()=>({
     title:{
         flex: 1,
-        color: 'crimson',
+        color: 'aqua',
         fontFamily: "Poppins",
         fontWeight: "bold",
         cursor: "pointer",
@@ -15,6 +16,7 @@ const useStyles = makeStyles(()=>({
 const Header = () => {
 const classes = useStyles();
 const history = useNavigate();
+const { currency, setCurrency } = CryptoState();
 const darkTheme = createTheme({
     palette:{
         primary:{
@@ -29,10 +31,10 @@ const darkTheme = createTheme({
     <AppBar color='transparent' position='static'>
         <Container>
             <Toolbar>
-                <Typography onClick={()=>history("/")}className={classes.title}>
+                <Typography onClick={()=>history("/")}className={classes.title} variant='h6'>
                     Crypto Currency Tracker
                 </Typography>
-                <Select variant='outlined' style={{width:100, height:40, marginLeft:15,}}>
+                <Select variant='outlined' style={{width:100, height:40, marginRight:15,}} value={currency} onChange={(e)=>setCurrency(e.target.value)}>
                     <MenuItem value={'USD'}>USD</MenuItem>
                     <MenuItem value={'INR'}>INR</MenuItem>
                 </Select>
